@@ -11,7 +11,7 @@ const MAX_PATH_LEN = config.maxPathLen || 8192;
 const CACHE_CONTROL = config.cacheControl || "public, max-age=300, stale-while-revalidate=86400";
 
 // Local files can only be read from inside this folder.
-const PROJECT_ROOT = path.resolve(__dirname, ".."); // process.cwd();
+const PROJECT_ROOT = process.cwd();
 const PROJECT_PREFIX = PROJECT_ROOT + path.sep;
 
 const fileCache = new Map(); // local file contents, filled on first read
