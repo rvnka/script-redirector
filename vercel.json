@@ -8,7 +8,7 @@
   ],
   "functions": {
     "api/[...path].js": {
-      "includeFiles": "**"
+      "includeFiles": "config.json,scripts/**"
     }
   }
 }
