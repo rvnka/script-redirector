@@ -1,19 +1,17 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/api/:path*"
-    }
-  ],
-
-  "functions": {
-    "api/[...path].js": {
-      "includeFiles": [
-        "config.json",
-        "scripts/**"
-      ]
-    }
-  }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/api/:path*"
+    }
+  ],
+  "functions": {
+    "api/[...path].js": {
+      "includeFiles": [
+        "config.json",
+        "scripts/**"
+      ]
+    }
+  }
 }
