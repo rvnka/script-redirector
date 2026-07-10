@@ -1,4 +1,4 @@
-# Script Redirector
+# Script Redirector (not working yet)
 
 Serve scripts under clean URLs for `irm | iex` and `curl | bash`. Zero dependencies, runs identically on Vercel, a VPS, or in Docker.
 
