@@ -10,7 +10,8 @@ const ALLOWED_HOSTS = new Set(config.allowedHosts || []);
 const MAX_PATH_LEN = config.maxPathLen || 8192;
 const CACHE_CONTROL = config.cacheControl || "public, max-age=300, stale-while-revalidate=86400";
 
-// Local files can only be read from inside this folder.
+// Local files can only be read from inside this folder. process.cwd() is
+// used (not __dirname) since that's what serverless bundlers preserve.
 const PROJECT_ROOT = process.cwd();
 const PROJECT_PREFIX = PROJECT_ROOT + path.sep;
 
