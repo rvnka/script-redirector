@@ -2,8 +2,6 @@
 
 Serve scripts under clean URLs for `irm | iex` and `curl | bash`. Zero dependencies, runs identically on Vercel, a VPS, or in Docker.
 
-===
-
 ## Requirements
 
 Node.js 24+ (LTS).
@@ -11,7 +9,7 @@ Node.js 24+ (LTS).
 ## Quick start
 
 ```bash
-npm start                 # http://localhost:3000
+npm start # http://localhost:3000
 docker build -t script-redirector . && docker run -p 3000:3000 script-redirector
 ```
 
@@ -58,5 +56,3 @@ vercel.json        tells Vercel to bundle scripts/** (routes are loaded at runti
 - Redirects only go to hosts in `allowedHosts`.
 - Route lookups can't hit inherited/prototype properties.
 - Successful responses are CDN-cacheable, so repeat requests don't reinvoke the function to keeps compute usage minimal on free-tier hosting.
-
-===
