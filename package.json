@@ -1,0 +1,15 @@
+{
+  "name": "script-redirector",
+  "version": "1.0.0",
+  "description": "Serve scripts under clean URLs for irm | iex and curl | bash",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "unknown"
+}

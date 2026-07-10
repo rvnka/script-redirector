@@ -1,0 +1,11 @@
+{
+  "port": 3000,
+  "rateLimit": 120,
+  "maxPathLen": 8192,
+  "cacheControl": "public, max-age=300, stale-while-revalidate=86400",
+  "allowedHosts": ["raw.githubusercontent.com", "gist.githubusercontent.com"],
+  "routes": {
+    "/win/helloworld": "./scripts/win/helloworld.ps1",
+    "/linux/helloworld": "./scripts/linux/helloworld.sh"
+  }
+}
