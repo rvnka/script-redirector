@@ -26,7 +26,9 @@ Everything lives in `config.json`:
   "allowedHosts": ["raw.githubusercontent.com"],
   "routes": {
     "/win/helloworld": "./scripts/win/helloworld.ps1",
-    "/win/test": "https://raw.githubusercontent.com/user/repo/main/test.ps1"
+    "/win/test": "https://raw.githubusercontent.com/user/repo/main/test.ps1",
+    "/linux/helloworld": "./scripts/win/helloworld.sh",
+    "/linux/test": "https://raw.githubusercontent.com/user/repo/main/test.sh"
   }
 }
 ```
