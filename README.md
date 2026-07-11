@@ -41,13 +41,17 @@ Everything lives in `config.json`:
 ## Structure
 
 ```
-api/[...path].js   Vercel entrypoint
-server.js          standalone entrypoint (VPS/Docker)
-src/handler.js     shared HTTP handling + rate limiting
-src/router.js      route resolution + local file/redirect logic
-config.json        routes and settings
-scripts/           files served by local routes
-vercel.json        tells Vercel to bundle scripts/** (config.json is auto-bundled since it's require()'d, but scripts/ files are only read dynamically at runtime, so they need to be listed explicitly — as a single glob pattern, Vercel's includeFiles doesn't support comma-separated lists)
+server.js          entrypoint everywhere — Vercel auto-detects a root server.js
+                    that calls .listen() and captures it as the single Function
+                    routing all requests, so it also just works on a VPS/Docker
+src/handler.js      shared HTTP handling + rate limiting
+src/router.js       route resolution + local file/redirect logic
+config.json         routes and settings
+scripts/            files served by local routes
+vercel.json         tells Vercel to bundle scripts/** into the server.js
+                    Function (config.json is auto-bundled since it's
+                    require()'d, but scripts/ files are only read dynamically
+                    at runtime, so they need to be listed explicitly)
 ```
 
 ## Security
