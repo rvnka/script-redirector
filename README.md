@@ -1,4 +1,4 @@
-# Script Redirector (not working yet)
+# Script Redirector
 
 Serve scripts under clean URLs for `irm | iex` and `curl | bash`. Zero dependencies, runs identically on Vercel, a VPS, or in Docker.
 
@@ -47,7 +47,7 @@ src/handler.js     shared HTTP handling + rate limiting
 src/router.js      route resolution + local file/redirect logic
 config.json        routes and settings
 scripts/           files served by local routes
-vercel.json        tells Vercel to bundle scripts/** (routes are loaded at runtime, so this is required)
+vercel.json        tells Vercel to bundle scripts/** (config.json is auto-bundled since it's require()'d, but scripts/ files are only read dynamically at runtime, so they need to be listed explicitly — as a single glob pattern, Vercel's includeFiles doesn't support comma-separated lists)
 ```
 
 ## Security
