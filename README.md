@@ -38,6 +38,7 @@ Everything lives in `config.json`:
 | `routes` | path → local file (must be inside the project) or remote URL (host must be in `allowedHosts`) |
 | `allowedHosts` | domains allowed as redirect targets to prevents open-redirect abuse |
 | `rateLimit` | max requests/minute per IP, overridable with the `RATE_LIMIT` env var, `0` disables |
+| `trustProxy` | whether to trust the `x-forwarded-for` header for rate limiting, overridable with `TRUST_PROXY=1`. **Off by default.** Only enable this if the deployment sits behind something that sets/overwrites this header itself (Vercel's edge, or your own nginx/Caddy reverse proxy) — otherwise any client can forge it to dodge the rate limit or get another client wrongly limited |
 | `port` | overridable with the `PORT` env var |
 
 ## Structure
@@ -58,7 +59,10 @@ vercel.json         tells Vercel to bundle scripts/** into the server.js
 
 ## Security
 
-- Local files are only served if their exact path is listed in `config.json`, and the resolved path is verified to stay inside the project folder.
-- Redirects only go to hosts in `allowedHosts`.
+- Local files are only served if their exact path is listed in `config.json`; the resolved path (with symlinks followed) is verified to stay inside the project folder.
+- Redirects only go to hosts in `allowedHosts`, matched against the exact parsed hostname.
 - Route lookups can't hit inherited/prototype properties.
+- Rate limiting keys off the real socket address by default; `x-forwarded-for` is only trusted when `trustProxy` is explicitly enabled for deployments that actually sit behind a proxy. The per-IP hit map is capped so it can't grow without bound.
+- Only `GET`/`HEAD` are accepted; request paths are length-capped.
+- Responses carry `x-content-type-options: nosniff`, `x-frame-options: DENY`, and `referrer-policy: no-referrer`.
 - Successful responses are CDN-cacheable, so repeat requests don't reinvoke the function to keeps compute usage minimal on free-tier hosting.

@@ -75,7 +75,23 @@ async function readLocalFile(target) {
 
   let content;
   try {
-    content = await fs.readFile(resolvedPath, "utf8");
+    // path.resolve() alone doesn't follow symlinks, so a symlink placed
+    // under a served folder (e.g. scripts/) could point outside the
+    // project root and still pass the check above. Resolve real paths for
+    // both sides and re-check containment before reading.
+    const [realProjectRoot, realPath] = await Promise.all([
+      fs.realpath(PROJECT_ROOT),
+      fs.realpath(resolvedPath),
+    ]);
+    const realPrefix = realProjectRoot + path.sep;
+    if (realPath !== realProjectRoot && !realPath.startsWith(realPrefix)) {
+      return {
+        status: 403,
+        headers: TEXT_HEADERS,
+        body: "Path is outside the allowed folder.",
+      };
+    }
+    content = await fs.readFile(realPath, "utf8");
   } catch {
     return {
       status: 404,

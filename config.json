@@ -1,5 +1,6 @@
 {
   "port": 3000,
+  "trustProxy": false,
   "rateLimit": 120,
   "maxPathLen": 8192,
   "cacheControl": "public, max-age=300, stale-while-revalidate=86400",
